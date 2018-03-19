@@ -198,6 +198,19 @@ func (f *File) SetRowVisible(sheet string, rowIndex int, visible bool) {
 	xlsx.SheetData.Row[rowIndex].Hidden = true
 }
 
+// SetRowOutline provides a function to set the outline level of a single row by given
+// worksheet name and row index. For example, hide row 3 in Sheet1:
+//
+//    xlsx.SetRowOutline("Sheet1", 2, 1)
+//
+func (f *File) SetRowOutlineLevel(sheet string, rowIndex int, outlineLevel uint8) {
+	xlsx := f.workSheetReader(sheet)
+	rows := rowIndex + 1
+	cells := 0
+	completeRow(xlsx, rows, cells)
+	xlsx.SheetData.Row[rowIndex].OutlineLevel = outlineLevel
+}
+
 // GetRowVisible provides a function to get visible of a single row by given
 // worksheet name and row index. For example, get visible state of row 3 in
 // Sheet1:
